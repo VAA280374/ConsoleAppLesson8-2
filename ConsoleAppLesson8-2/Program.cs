@@ -29,10 +29,10 @@ namespace ConsoleAppLesson8_2
             using (StreamWriter sww = new StreamWriter(path, true))
             {
                 Random random = new Random();
-                int r = random.Next(-50, 50);
                 for (int i = 0; i < 10; i++)
                 {
-                    sww.Write(" {0} ", random.Next(-50, 50));
+                    int r = random.Next(-50, 50);
+                    sww.Write(" {0} ", r);
                 }
             }
 
@@ -40,17 +40,19 @@ namespace ConsoleAppLesson8_2
             _result = sr.ReadToEnd();
             sr.Close();
 
-            string[] _resultArray = _result.Split();
+            Console.Write("Сгенерирована последовательность : {0}", _result);
+            _result = _result.Trim(); // Убираем началиный и конечный пробелы, похоже они пееносятся в _rezultArrey
+
+            string[] _resultArray = _result.Split(); // ПРО..СЯ!!! При наличии двух пробелов подряд на втором пробеле генерируется "Пустая" строка.
             foreach (string line in _resultArray)
             {
-                // sum += Convert.ToInt32(line);
-                Console.WriteLine(line);
-                //Console.WriteLine(line.TrimEnd);
-
+                if (line == "") continue;  // ВАЖНО!!! Убираем пустые строки - см. Коммент к Split
+                // Console.Write(line);
+                sum += Convert.ToInt32(line);
             }
+            Console.WriteLine();
+            Console.WriteLine("Сумма чисел равна : {0}", sum);
 
-
-            Console.WriteLine(_result);
             Console.ReadKey();
         }
     }
