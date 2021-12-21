@@ -18,7 +18,8 @@ namespace ConsoleAppLesson8_2
             if (!File.Exists(path))
             {
                 Console.WriteLine("Файл {0} создан заново", path);
-                File.Create(path);  
+                FileStream fs = File.Create(path);
+                fs.Close();
             }
             using (StreamWriter sw = new StreamWriter(path, false))
             { 
